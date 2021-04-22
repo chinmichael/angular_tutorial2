@@ -1,0 +1,30 @@
+<!--{{hero}}-->
+
+<h2>{{hero.name | uppercase}} Details</h2>
+<div><span>id: </span>{{hero.id}}</div>
+<div><span>name: </span>{{hero.name}}</div>
+
+<div>
+    <label>name:
+        <input [(ngModel)] = "hero.name" placeholder="name"/>
+    </label>
+</div>
+
+
+<!-- 4/22 히어로 에디터
+
+    component 생성 : 프로젝트 터미널에서 ng generate component 컴포넌트명  으로 생성 가능
+    (물론 src/app 에 하위 디렉터리로 생성됨)
+
+    |(파이프) : 문자열 바인딩 시 문자열 형식 지정
+    uppercase : 딱봐도 대문자화 / currency : 딱봐도 통화형식
+
+    히어로 정보 수정 폼
+    <input> 텍스트박스에서 수정하는 즉시 화면에 보임
+    = name 프로퍼티가 화면에 표시됨과 동시에 업데이트 되야함
+    = 데이터가 컴포넌트 클래스(ts)와 템플릿(html) 사이 동시에 왔다갔다해야함
+    >> 양방향 바인딩처리
+
+    [] : angular 속성 바인딩(vue는 :속성)
+    [()] : angular 양방향 바인딩
+-->
