@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+/* CLI로 자동 생성되는 APP 전역 스타일 적용 */
+
+h1 {
+    color: #369;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 250%;
+}
+
+h2, h3 {
+    color: #444;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+body {
+    margin: 2em; /*상위요소 폰트 사이즈의 2배*/
+}
+
+body, input[type="text"], button {
+    color: #333;
+    font-family: Cambria, Georgia;
+}
+
+* { /* 모든 엘리먼트에 적용되는 경우 */
+    font-family: Arial, Helvetica, sans-serif
+}
+

@@ -1,0 +1,50 @@
+/*컴포넌트 css는 전역 css보다 우선순위가 높다*/
+
+.heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+}
+
+.heroes li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+}
+
+.heroes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em; /*호버링 시 약간의 애니메이션 느낌으로 눌린 느낌 주기 위해서*/
+}
+
+.heroes li.selected {
+    background-color: #CFD8DC;
+    color: white;
+}
+
+.heroes li.selected:hover {
+    background-color: #BBD8DC;
+    color: white;
+}
+
+.heroes .badge {
+    display: inline-block; /*float가 아니라 inline-block으로*/
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #405061;
+    line-height: 1em; /*텍스트 간 줄 간격을 위함*/
+    position: relative; /*position 좌표 이용하기 위해*/
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px; /*이름하고 붙는 쪽은 직각이어야하므로*/
+}
