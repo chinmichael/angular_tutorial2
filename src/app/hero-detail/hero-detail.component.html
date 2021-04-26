@@ -1,0 +1,26 @@
+<div *ngIf="hero">
+    <h2>{{hero.name | uppercase }} Details</h2>
+    <div><span>id: </span>{{ hero.id }}</div>
+    <div>
+        <label>name:
+            <input [(ngModel)]="hero.name" placeholder="name">
+        </label>
+    </div>
+</div>
+
+
+<!--4/24 컴포넌트 분할(컴포넌트 목적 : 함수처럼 축약 명료화)
+
+    우선 당빠 컴포넌트 생성(cli : ng generate component 컴포넌트)
+
+    기능 컴포넌트는 적절히 분리해야 APP이 커질 때 관리하기가 수월함
+
+    detail의 클래스 컴포넌트는
+    @Input 데코레이터를 통해
+    hero 템플릿의
+    <app-hero-detail [hero]="selectedHero"></app-hero-detail> selectedHero의 프로퍼티값을
+    hero를 바인딩하여 받아올 수 있도록 처리
+
+
+
+-->

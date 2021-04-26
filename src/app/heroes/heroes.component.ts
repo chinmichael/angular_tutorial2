@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero'; // hero.ts에 지정한 Hero 인터페이스를 가져와 이 기준으로 데이터 객체 세팅 
-import { HEROES } from '../mock-heroes';
+//import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service'; // 데이터를 서비스를 거쳐 가져옴
 
 @Component({
   selector: 'app-heroes',
@@ -15,12 +16,27 @@ export class HeroesComponent implements OnInit {
     name: 'Windstorm'
   } // import한 인터페이스를 기준으로 객체 세팅
 
-  heroes = HEROES;
+  heroes: Hero[];
   selectedHero: Hero;
 
-  constructor() { }
+  constructor(private heroService: HeroService) { //의존성 주입 시스템에서 알아서 알맞음 인스턴스를 박아줌
+
+  }
 
   ngOnInit(): void {
+    this.getHeroes();
+  }
+
+  getHeroes(): void {
+    //this.heroes = this.heroService.getHeroes();
+    //위의 경우 히어로 데이터를 배열(Hero[])로 가져와 heroes프로퍼티에 직접 할당(동기방식)
+    //서비스가 즉시 데이터 반환 or 서버의 응답이 동기방식 전달이 될 때만 가능
+    //서비스가 리모트서버에 요청을 보내는 방식에서는 동작이 원활하지가 않다
+
+    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+    //이 경우는 반환시점이 서버 응답 타이밍이 언제인지와 상관없이 (바로 받지 않아도 됨)
+    //subscribe가 서버에서 받은 응답을 콜백함수로 전달하고 컴포넌트가 할당함
+
   }
 
   onSelect(hero: Hero): void {
@@ -59,5 +75,17 @@ metadata : 구성요소에 대한 정보(어떻게 이뤄져있는가) > angular
 ngModel을 제공받기 위해서는 FormsModule이 필요
 애플리케이션 동작에 필요한 처리이므로 이는 app.modules.ts에 import시키고
 @ngModule 메타데이터에 추가함
+
+*/
+
+/* 4/26 Service처리(여기서는 주입받아 데이터를 받아옴)
+
+위의 경우 현재 컴포넌트의 getHeroes() 함수는
+생성자에 주입받은 서비스 객체의 getHeroes를 heroes 멤버에 넣는다
+
+머가 되었든 컴포넌트 생성시 이 컴포넌트의 getHeroes()를 실행해서 데이터를 받아야하는데
+이때 생성자는 생성자로 받은 인자를 프로퍼티로 연결하는 정도로 유지하는 편이 좋다고 함
+
+이럴 때 쓰는게 라이프사이클 후킹 함수 ngOnInit > 컴포넌트 인스턴스를 생성한 직후에 실행되는 함수
 
 */
