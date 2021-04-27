@@ -1,0 +1,15 @@
+<div *ngIf="messageService.messages.length">
+    <h2>Messages</h2>
+    <button class="clear" (click)="messageService.clear()">clear</button>
+    <div *ngFor="let message of messageService.messages">{{message}}</div>
+</div>
+
+<!--4/27 : message 표시
+
+    App에서 발생하는 message를 표시하기 위한 message컴포넌트
+    App 전역에 의존성 주입이 가능한 MessageService를 만들어 이용함
+
+    위 템플릿은 컴포넌트에서 의존성으로 주입된 messageService직접 바인딩 가능
+    (생성자에서 public으로 주입함)
+
+-->
