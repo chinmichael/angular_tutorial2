@@ -5,17 +5,22 @@ import { HEROES } from './mock-heroes';
 
 import { Observable, of } from 'rxjs'; // RXJS가 제공하는 가장 중요한 클래스
 
+import { MessageService } from './message.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class HeroService {
 
-  constructor() { }
+  //생성자는 되도록 프로퍼티 등을 주입하는 용도 아래의 경우는 서비스 안의 서비스
+  constructor(private messageService: MessageService) { }
 
   // getHeroes(): Hero[] {
   //   return HEROES; // Hero 목 데이터 목록 고대로 반환
   // }
   getHeroes(): Observable<Hero[]> {
+    // TODO:히어로 데이터를 받아온 뒤에 메시지를 띄어야함 (Observable이기에 받아온 뒤 처리)
+    this.messageService.add('HeroService : fetched heroes')
     return of(HEROES);
   }
 

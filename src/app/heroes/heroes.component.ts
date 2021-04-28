@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero'; // hero.ts에 지정한 Hero 인터페이스를 가져와 이 기준으로 데이터 객체 세팅 
 //import { HEROES } from '../mock-heroes';
 import { HeroService } from '../hero.service'; // 데이터를 서비스를 거쳐 가져옴
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -11,15 +12,16 @@ import { HeroService } from '../hero.service'; // 데이터를 서비스를 거�
 export class HeroesComponent implements OnInit {
 
   //hero = 'Windstorm'; // 일종의 멤버변수처럼 생각
-  hero: Hero = {
-    id: 1,
-    name: 'Windstorm'
-  } // import한 인터페이스를 기준으로 객체 세팅
+  // hero: Hero = {
+  //   id: 1,
+  //   name: 'Windstorm'
+  // } // import한 인터페이스를 기준으로 객체 세팅
 
   heroes: Hero[];
   selectedHero: Hero;
 
-  constructor(private heroService: HeroService) { //의존성 주입 시스템에서 알아서 알맞음 인스턴스를 박아줌
+  constructor(private heroService: HeroService,
+    private messageService: MessageService) { //의존성 주입 시스템에서 알아서 알맞음 인스턴스를 박아줌
 
   }
 
@@ -41,6 +43,8 @@ export class HeroesComponent implements OnInit {
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+    // 주의 ${}을 하기 위해 ''가 아닌 ``로 묶어야한다...덕분에 헤맨... 하나 배웠네 또
   }
 }
 

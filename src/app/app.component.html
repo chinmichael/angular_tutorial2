@@ -1,6 +1,22 @@
 <h1>{{title}}</h1>
-<app-heroes></app-heroes>
+<!-- <app-heroes></app-heroes> -->
 <!--heroes 컴포넌트.ts에 지정된 컴포넌트의 셀렉터-->
+<nav>
+  <a routerLink="/heroes">Heroes</a>
+  <!--url 뒤에 /heroes path를 붙이면 이동하므로-->
+</nav>
+<!--routeLink
+    RouteModule이 제공하는 RouteLink 디렉티브
+    사용자가 이 디렉티브가 적용된 엘리먼트를 클릭시 네비게이션 실행
+    routerLink 프로퍼티의 어트리뷰트로는 이동하려는 컴포넌트의 라우팅 경로를 입력-->
+<!--디렉티브 : 지시어 / 모듈에서 작성된 directive메서드 / HTML안에 특수한 기능을 할당하는 HTML태그 혹은 속성-->
+<router-outlet></router-outlet>
+<!--라우팅 된 화면이 표시될 위치를 지정하는 엘리먼트-->
+<!--RouterOutlet 디렉티브
+    CLI로 생성할 때 module=app을 지정하면서 AppModule에 AppRoutingModule을 로드 + NgModule에 라우팅 모듈 추가하였기에
+    RouterModule을 외부공개(NgModule export)AppRoutingModule의 RouterOutlet디렉티브를 AppComponent에서도 사용 가능-->
+<app-messages></app-messages>
+<!--앱 밑에 표시되는 메시지 컴포넌트-->
 
 <!--4/22 : 프로젝트 생성
 
