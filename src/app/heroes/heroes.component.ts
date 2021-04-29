@@ -18,11 +18,11 @@ export class HeroesComponent implements OnInit {
   // } // import한 인터페이스를 기준으로 객체 세팅
 
   heroes: Hero[];
-  selectedHero: Hero;
+  // selectedHero: Hero; 이제 아예 id기준으로 라우팅됨
 
   constructor(private heroService: HeroService,
-    private messageService: MessageService) { //의존성 주입 시스템에서 알아서 알맞음 인스턴스를 박아줌
-
+    //private messageService: MessageService
+  ) { //의존성 주입 시스템에서 알아서 알맞음 인스턴스를 박아줌
   }
 
   ngOnInit(): void {
@@ -42,8 +42,8 @@ export class HeroesComponent implements OnInit {
   }
 
   onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+    //this.selectedHero = hero;
+    //this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
     // 주의 ${}을 하기 위해 ''가 아닌 ``로 묶어야한다...덕분에 헤맨... 하나 배웠네 또
   }
 }

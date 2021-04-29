@@ -10,8 +10,12 @@
 </div> -->
 <h2>My Heroes</h2>
 <ul class="heroes">
-    <li *ngFor="let hero of heroes" (click)="onSelect(hero)" [class.selected]="hero === selectedHero">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <li *ngFor="let hero of heroes">
+        <!--(click)="onSelect(hero)" [class.selected]="hero === selectedHero"> -->
+        <!--라우팅 링크를 연결하는걸로 재설정-->
+        <a routerLink="/detail/{{hero.id}}">
+            <span class="badge">{{hero.id}}</span> {{hero.name}}
+        </a>
     </li>
 </ul>
 <!-- <div *ngIf="selectedHero">
@@ -23,7 +27,7 @@
         </label>
     </div>
 </div> : detail 컴포넌트로 기능 분할-->
-<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+<!-- <app-hero-detail [hero]="selectedHero"></app-hero-detail> -->
 <!--4/24 : hero 프로퍼티에 바인딩하여 데이터 전달 >> @Input()데코레이터로 입력 프로퍼티로 선언
          : Heros컴포넌트(상위Com)의 selectedHero 프로퍼티가
            Detail컴포넌트(하위Com)의 hero프로퍼티로 단방향 바인딩(선택하여 결정하는건 상위에서만) 됨-->

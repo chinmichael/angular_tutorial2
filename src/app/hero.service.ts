@@ -23,6 +23,10 @@ export class HeroService {
     this.messageService.add('HeroService : fetched heroes')
     return of(HEROES);
   }
+  getHero(id: number): Observable<Hero> {
+    this.messageService.add(`HeroService: fetched hero id=${id}`); //역따옴표``는 템플릿리터럴을 표현하는 JS문법
+    return of(HEROES.find(hero => hero.id === id));
+  }
 
 }
 

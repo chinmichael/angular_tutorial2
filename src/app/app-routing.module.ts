@@ -3,9 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router'; //라우팅 동작을 실행할 수 있도록
 import { HeroesComponent } from './heroes/heroes.component'; // 라우팅 규칙에 따라 이동할 컴포넌트
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
 const routes: Routes = [
-  { path: 'heroes', component: HeroesComponent }
+  { path: 'heroes', component: HeroesComponent },
+  { path: 'dashboard', component: DashboardComponent },
+
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  // 4/29 : 기본 라우티 규칙 : App시작시 브라우저 URL주소는 웹 최상위 주소 가리킴(매치 라우팅 규칙 없음) >> 브라우저 url이 빈문자열일때 /dashboard로 이동하게 함
+  { path: 'detail/:id', component: HeroDetailComponent },
+  // id에 해당하는 라우팅 변수를 :id로 받겠다는 말
+  // Restful하게 자원지시자로서 하기 위해 이런 url디자인을 갖도록 하는게 좋겠지...  
+
 ];
 
 
