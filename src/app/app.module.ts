@@ -10,6 +10,11 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { HttpClientModule } from '@angular/common/http'; // 리모트 서버와 HTTP통신을 하기위한 Angular서비스
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service'; //In-Memory Web API를 로드하기 위함
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +26,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+
+    //HTTP요청을 가로채어 서버의 응답을 흉내내어주는 모듈
+    HttpClientInMemoryWebApiModule.forRoot( // InMemoryDataService클래스 인자를 받아 In-Memory 데이터베이스 실행환경 구성하는 메서드
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
