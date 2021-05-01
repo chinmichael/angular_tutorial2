@@ -38,6 +38,7 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
     //이 경우는 반환시점이 서버 응답 타이밍이 언제인지와 상관없이 (바로 받지 않아도 됨)
     //subscribe가 서버에서 받은 응답을 콜백함수로 전달하고 컴포넌트가 할당함
+    // 애로우 함수 : 파라미터 => {} : function 함수명이 제외된 함수라고 생각하면 편함 this.의 객체가 상위요소 객체임
 
   }
 
@@ -45,6 +46,22 @@ export class HeroesComponent implements OnInit {
     //this.selectedHero = hero;
     //this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
     // 주의 ${}을 하기 위해 ''가 아닌 ``로 묶어야한다...덕분에 헤맨... 하나 배웠네 또
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) return;
+    this.heroService.addHero({ name } as Hero).subscribe(hero => { this.heroes.push(hero) });
+    //name을 사용해 Hero 호환되는 객체 생성
+    //>> addHero()가 문제없이 실행되면 다음으로 subscribe()함수가 새로운 hero객체를 받고 heroes목록에 추가(push)
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    // 삭제된 히어로 히어로 목록에서 뺌(필터링 함) h(해당 히어로)가 아닌것만 넣어 처리한다 
+    this.heroService.deleteHero(hero).subscribe();
+    // deleteHero를 실행하고 받은 Observable은 반환하는게 없기에 위 히어로 목록에서 정상처리되었다고 생각하고 리스트에서 뺀다
+    // 하지만 subscribe()를 그렇다고 하지 않는다면 Obervable구독이 없어 service에서 해당 Observable이 동작하지 않기에 subscribe처리는 해줘야함
   }
 }
 

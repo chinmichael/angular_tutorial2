@@ -34,6 +34,11 @@ export class HeroDetailComponent implements OnInit {
     this.location.back(); // 브라우저의 히스토리 스택 활용을 위해 Location을 활용 
   }
 
+  save(): void {
+    this.heroService.updateHero(this.hero)
+      .subscribe(() => this.goBack()); // 서버에 데이터 변화 저장을 위해 HeroService에서 http.put()함수 사용해 작업 후 변경 내용을 저장하고 이전화면 이동
+  }
+
   ngOnInit(): void {
     this.getHero();
   }

@@ -6,6 +6,7 @@
             <input [(ngModel)]="hero.name" placeholder="name">
         </label>
     </div>
+    <button (click)="save()">save</button>
     <button (click)="goBack()">go back</button>
 </div>
 
@@ -21,7 +22,4 @@
     hero 템플릿의
     <app-hero-detail [hero]="selectedHero"></app-hero-detail> selectedHero의 프로퍼티값을
     hero를 바인딩하여 받아올 수 있도록 처리
-
-
-
 -->

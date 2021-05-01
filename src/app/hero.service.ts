@@ -19,6 +19,10 @@ export class HeroService {
   private heroesUrl = 'api/heroes';
   // 웹 API형식 URL >> :base(어떤종류의 요청인지(HTTP메서드인지)/:collectionName(InMemoryDataService파일 콜렉션 구분변수)
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   //생성자는 되도록 프로퍼티 등을 주입하는 용도 아래의 경우는 서비스 안의 서비스
   constructor(
     private http: HttpClient,
@@ -56,6 +60,42 @@ export class HeroService {
       catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
   }
+
+  updateHero(hero: Hero): Observable<any> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap(_ => this.log(`updated hero id = ${hero.id}`)),
+      catchError(this.handleError<any>('updateHero'))
+    );
+  }
+
+  addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap((newHero: Hero) => this.log(`added hero w/ id = ${newHero.id}`)),
+      catchError(this.handleError<Hero>('addHero'))
+    );
+  }
+
+  deleteHero(hero: Hero | number): Observable<Hero> { // number로 |(변환) 시켜 받음
+
+    const id = typeof hero === 'number' ? hero : hero.id;
+    // typeof는 변수(hero)의 데이터타입을 반환하는 js연산자 >> hero가 id(number)를 받은거면 그대로 / 그게 아니라 Hero 객체를 받았을 경우 hero.id로
+    const url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted hero id = ${id}`)),
+      catchError(this.handleError<Hero>('deleteHero'))
+    );
+
+  }
+  /*5/1: http post, put, delete
+    HttpClient.put()메서드 파라미터 3개 : URL(예제는 히어로 id기준으로 수정할거라 url변동은 없음), 수정할 데이터, 옵션(이 예제에서는 위에 HTTP헤더를 저장해 사용)
+     
+    HttpClient.post()메서드 >> 위 put과 파라미터는 유사 예제의 경우 put때외 달리 Observable<Hero>타입으로 반환
+                            >> 새로운 아이디가 생성되기에 tap을 통해 정보를 받아와 id를 메시지에 출력함
+                            >> 이는 heroes컴포넌트에서 name을 통해 새로운 hero객체를 생성할 때 인메모리 서버 DB환경에서 ID가 없는 경우 기존마지막ID+1를 갖도록 처리를 했기 때문에
+
+    HttpClient.delete()메서드 : 기존url에 삭제할 /id를 붙이게 수정, post(), put()과 달리 데이터를 body()파라미터로 보내지 않고 url파라미터로 보냄 
+  */
 
   /*로그를 messageSerive로 표시시킴*/
   private log(message: string) {
